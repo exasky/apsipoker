@@ -1,0 +1,59 @@
+@import "material/material";
+@import "~bootstrap/scss/bootstrap";
+
+@import '~ngx-toastr/toastr';
+
+@import "flex";
+@import "bootstrap/bootstrap";
+
+@import "tooltip";
+
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+app-root {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.unicorn-light-theme {
+
+  app-root {
+    background-image: url('/assets/wallpaper/background.jpg') !important;
+  }
+
+}
+
+.overflow {
+  overflow: auto !important;
+}
+
+.overflow-y {
+  overflow-y: auto !important;
+}
+
+.w-0 {
+  //noinspection CssRedundantUnit
+  width: 0px;
+}
+
+.mw-75 {
+  min-width: 75%;
+}
+
+.tooltip-inner {
+  max-width: unset !important;
+}
+
+.mdi-large {
+  font-size: 140% !important;
+  margin-right: 20px !important;
+}
