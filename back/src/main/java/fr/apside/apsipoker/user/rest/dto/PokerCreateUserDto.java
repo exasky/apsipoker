@@ -12,6 +12,12 @@ public class PokerCreateUserDto {
     @NotEmpty(message = Constant.Errors.USER.NAME_EMPTY)
     private String username;
 
+    private String email;
+
+    private String firstName;
+
+    private String lastName;
+
     @NotNull(message = Constant.Errors.USER.ROLE_EMPTY)
     private UserRole role;
 
@@ -23,11 +29,15 @@ public class PokerCreateUserDto {
     @NotEmpty(message = Constant.Errors.USER.AGENCY_EMPTY)
     private String agency;
 
+
     public static PokerCreateUserDto toDto(PokerUser bo) {
         PokerCreateUserDto dto = new PokerCreateUserDto();
 
         dto.setRole(bo.getRole());
         dto.setUsername(bo.getUsername());
+        dto.setEmail(bo.getEmail());
+        dto.setFirstName(bo.getFirstName());
+        dto.setLastName(bo.getLastName());
         dto.setAgency(bo.getAgency());
 
         return dto;
@@ -36,9 +46,12 @@ public class PokerCreateUserDto {
     public static PokerUser toBo(PokerCreateUserDto dto) {
         PokerUser bo = new PokerUser();
 
+        bo.setUsername(dto.username);
         bo.setPassword(dto.password);
         bo.setRole(dto.role);
-        bo.setUsername(dto.username);
+        bo.setEmail(dto.email);
+        bo.setFirstName(dto.firstName);
+        bo.setLastName(dto.lastName);
         bo.setAgency(dto.agency);
 
         return bo;
@@ -76,5 +89,30 @@ public class PokerCreateUserDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     // endregion
 }

@@ -16,11 +16,21 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ErrorInterceptor} from './common/interceptor/error-interceptor.service';
 import {ForbiddenInterceptor} from './login/interceptor/forbidden.interceptor';
+import {MatCardModule} from '@angular/material/card';
+import {ConfirmDialogComponent} from './common/dialog/confirm-dialog.component';
+import {UserListComponent} from './user/component/user-list.component';
+import {UserDetailComponent} from './user/component/user-detail.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmDialogComponent,
+    UserListComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +43,15 @@ import {ForbiddenInterceptor} from './login/interceptor/forbidden.interceptor';
       positionClass: 'toast-bottom-right',
       timeOut: 5000
     }),
+    MatInputModule,
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
     MatSidenavModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

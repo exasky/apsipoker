@@ -34,6 +34,12 @@ public class UserService {
     public PokerUser create(PokerUser toCreate) {
         PokerUser attachedUser = loginService.register(toCreate.getUsername(), toCreate.getPassword());
 
+        attachedUser.setEmail(toCreate.getEmail());
+        attachedUser.setFirstName(toCreate.getFirstName());
+        attachedUser.setLastName(toCreate.getLastName());
+        attachedUser.setRole(toCreate.getRole());
+        attachedUser.setAgency(toCreate.getAgency());
+
         return attachedUser;
     }
 
@@ -47,6 +53,9 @@ public class UserService {
         }
 
         attachedUser.setUsername(toUpdate.getUsername());
+        attachedUser.setEmail(toUpdate.getEmail());
+        attachedUser.setFirstName(toUpdate.getFirstName());
+        attachedUser.setLastName(toUpdate.getLastName());
         attachedUser.setRole(toUpdate.getRole());
         attachedUser.setAgency(toUpdate.getAgency());
 

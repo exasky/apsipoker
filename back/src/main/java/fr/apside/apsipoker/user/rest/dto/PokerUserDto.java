@@ -24,6 +24,10 @@ public class PokerUserDto {
     @NotNull(message = Constant.Errors.USER.AGENCY_EMPTY)
     private String agency;
 
+    private String email;
+    private String firstName;
+    private String lastName;
+
     public static List<PokerUserDto> toDto(List<PokerUser> bos) {
         return Objects.isNull(bos)
                 ? new ArrayList<>()
@@ -36,6 +40,9 @@ public class PokerUserDto {
         dto.setId(bo.getId());
         dto.setRole(bo.getRole());
         dto.setUsername(bo.getUsername());
+        dto.setEmail(bo.getEmail());
+        dto.setFirstName(bo.getFirstName());
+        dto.setLastName(bo.getLastName());
         dto.setAgency(bo.getAgency());
 
         return dto;
@@ -46,6 +53,9 @@ public class PokerUserDto {
 
         bo.setRole(dto.role);
         bo.setUsername(dto.username);
+        bo.setEmail(dto.email);
+        bo.setFirstName(dto.firstName);
+        bo.setLastName(dto.lastName);
         bo.setAgency(dto.agency);
 
         return bo;
@@ -84,5 +94,30 @@ public class PokerUserDto {
     public void setAgency(String agency) {
         this.agency = agency;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     // endregion
 }

@@ -1,0 +1,100 @@
+<div class="d-flex flex-column flex-shrink-0">
+  <button mat-raised-button
+          class="flex-shrink-0 m-3"
+          (click)="createUser()">
+    <div class="d-flex align-items-center">
+      <mat-icon class="mr-2">add</mat-icon>
+      Créer
+    </div>
+  </button>
+  <div class="flex-grow overflow d-flex flex-column">
+    <button mat-raised-button color="accent"
+            *ngFor="let user of users"
+            class="flex-shrink-0 m-3"
+            (click)="selectUser(user)">
+      {{user.username}}
+    </button>
+  </div>
+</div>
+
+
+<div class="flex-grow d-flex justify-content-center align-items-center flex-wrap">
+  <mat-card class="m-3 h-75 w-lg-50 w-75 d-flex flex-column" *ngIf="selectedUser">
+    <mat-card-header class="flex-shrink-0 d-flex align-items-start flex-wrap">
+      <mat-card-title>
+        <div *ngIf="selectedUser.username">{{selectedUser.username}}</div>
+        <div *ngIf="!selectedUser.username">Nouveau</div>
+      </mat-card-title>
+      <div class="flex-grow d-flex justify-content-end" *ngIf="!isEdit">
+        <button mat-raised-button (click)="editUser()">
+          <mat-icon>edit</mat-icon>
+          Editer
+        </button>
+        <button mat-raised-button color="warn" class="mx-2" *ngIf="selectedUser.id" (click)="deleteUser()">
+          <mat-icon>delete</mat-icon>
+          Supprimer
+        </button>
+      </div>
+      <div class="flex-grow d-flex justify-content-end" *ngIf="isEdit">
+        <button mat-raised-button (click)="cancel()">
+          <mat-icon>undo</mat-icon>
+          Annuler
+        </button>
+        <button mat-raised-button color="accent" class="mx-2" (click)="saveUser()">
+          <mat-icon>save</mat-icon>
+          Sauver
+        </button>
+        <button mat-raised-button color="warn" class="mx-2" *ngIf="selectedUser.id" (click)="resetPassword()">
+          <mat-icon>vpn_key</mat-icon>
+          RàZ du mot de passe
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="d-flex flex-column overflow">
+      <mat-form-field>
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input matInput [(ngModel)]="userEdit.username"
+               required
+               autocomplete="nope"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="userEdit.email"
+               required
+               autocomplete="nope"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput [(ngModel)]="userEdit.lastName"
+               required
+               autocomplete="nope"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Prénom</mat-label>
+        <input matInput [(ngModel)]="userEdit.firstName"
+               required
+               autocomplete="nope"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [(ngModel)]="userEdit.password"
+               type="password"
+               required
+               autocomplete="new-password"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select [(ngModel)]="userEdit.role" [disabled]="!isEdit">
+          <mat-option value="ROLE_ADMIN">Admin</mat-option>
+          <mat-option value="ROLE_PLAYER">Joueur</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-card-content>
+  </mat-card>
+</div>

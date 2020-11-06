@@ -1,0 +1,50 @@
+<ng-container *ngIf="currentUser">
+  <mat-card class="d-flex flex-column col-4 flex-0">
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput [(ngModel)]="currentUser.username" required autocomplete="false">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="currentUser.email" required autocomplete="nope">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="currentUser.lastName" required autocomplete="nope">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Prénom</mat-label>
+      <input matInput [(ngModel)]="currentUser.firstName" required autocomplete="nope">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <mat-select [value]="currentUser.role" disabled>
+        <mat-option value="ROLE_ADMIN">Admin</mat-option>
+        <mat-option value="ROLE_PLAYER">Joueur</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-card-actions class="d-flex justify-content-center">
+      <button mat-raised-button (click)="saveUser()">Sauver</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="d-flex flex-column mt-2 col-4 flex-0">
+    <form [formGroup]="passFormGroup" class="d-flex flex-column">
+      <mat-form-field>
+        <input matInput type="password" placeholder="Mot de passe" formControlName="password" (input)="onPasswordInput()">
+        <mat-error *ngIf="password.hasError('required')">Mot de passe requis</mat-error>
+        <mat-error *ngIf="password.hasError('minlength')">Taille trop petite ;)</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirmation de mot de passe" formControlName="password2"
+               (input)="onPasswordInput()">
+        <mat-error *ngIf="password2.hasError('required')">Confirmation requise</mat-error>
+        <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Mots de passes ne matchent pas</mat-error>
+      </mat-form-field>
+    </form>
+    <mat-card-actions class="d-flex justify-content-center">
+      <button mat-raised-button (click)="updatePassword()" [disabled]="passFormGroup.invalid">MàJ du mot de passe</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>

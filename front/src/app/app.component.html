@@ -1,9 +1,13 @@
 <mat-toolbar color="primary" class="flex-shrink-0 d-flex justify-content-between" *ngIf="authService.currentUserValue">
-  <button type="button" mat-button (click)="drawer.toggle()">
+  <button type="button" mat-button (click)="drawer.toggle()" *ngIf="authService.isAdmin">
     <mat-icon>menu</mat-icon>
   </button>
-  <img [src]="'/assets/logo_' + (isDarkTheme ? 'dark' : 'light')+ '.png'"
-       style="height: 100%; padding: 5px; object-fit: contain" alt="DnD Online">
+  <button type="button" mat-button routerLink="/" *ngIf="!authService.isAdmin">
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <span>ApsiPoker</span>
+
   <div>
     <button mat-button [matMenuTriggerFor]="menu">{{authService.currentUserValue.username}}</button>
     <mat-menu #menu="matMenu">
@@ -20,19 +24,10 @@
 
 <mat-drawer-container autosize class="flex-grow h-100 overflow" style="z-index: 100;">
   <mat-drawer #drawer mode="over" style="z-index: 100;">
-    <div *ngIf="authService.currentUserValue"
-         class="d-flex flex-column m-3">
+    <div *ngIf="authService.currentUserValue && authService.isAdmin" class="d-flex flex-column m-3">
       <button mat-raised-button routerLink="/" (click)="drawer.toggle()">Menu principal</button>
-
-      <button mat-raised-button *ngIf="authService.isAdmin"
-              class="my-3"
-              routerLink="/" (click)="drawer.toggle()">
-        Gestion des Tournois
-      </button>
-      <button mat-raised-button *ngIf="authService.isAdmin"
-              routerLink="/" (click)="drawer.toggle()">
-        Gestion des utilisateurs
-      </button>
+      <button mat-raised-button class="my-3" routerLink="/" (click)="drawer.toggle()">Gestion des Tournois</button>
+      <button mat-raised-button routerLink="/users" (click)="drawer.toggle()">Gestion des utilisateurs</button>
     </div>
   </mat-drawer>
 
