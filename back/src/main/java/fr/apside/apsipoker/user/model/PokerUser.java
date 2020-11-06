@@ -1,13 +1,17 @@
 package fr.apside.apsipoker.user.model;
 
+import fr.apside.apsipoker.tournament.model.Championship;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
+// TODO add field isExternal (Apside or not)
 @Entity
 @Table(name = "poker_user")
 public class PokerUser implements UserDetails {
@@ -19,6 +23,15 @@ public class PokerUser implements UserDetails {
     private String username;
 
     @Column
+    private String email;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column
     private String password;
 
     @Column
@@ -27,6 +40,9 @@ public class PokerUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column
     private UserRole role;
+
+    @ManyToMany
+    private List<Championship> participations = new ArrayList<>();
 
     public PokerUser() {
     }
@@ -48,9 +64,28 @@ public class PokerUser implements UserDetails {
         this.username = username;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(this.role.toString()));
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -76,9 +111,23 @@ public class PokerUser implements UserDetails {
     public void setAgency(String agency) {
         this.agency = agency;
     }
+
+    public List<Championship> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(List<Championship> participations) {
+        this.participations = participations;
+    }
+
     // endregion
 
     // region UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(this.role.toString()));
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

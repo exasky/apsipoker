@@ -1,7 +1,7 @@
 package fr.apside.apsipoker.security;
 
-import com.exasky.dnd.security.jwt.JwtAuthenticationEntryPoint;
-import com.exasky.dnd.security.jwt.JwtRequestFilter;
+import fr.apside.apsipoker.security.jwt.JwtAuthenticationEntryPoint;
+import fr.apside.apsipoker.security.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

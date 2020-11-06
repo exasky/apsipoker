@@ -1,7 +1,7 @@
 package fr.apside.apsipoker.security.jwt;
 
-import com.exasky.dnd.common.Constant;
-import com.exasky.dnd.security.MyUserDetailsService;
+import fr.apside.apsipoker.common.Constant;
+import fr.apside.apsipoker.security.MyUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

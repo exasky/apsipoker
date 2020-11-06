@@ -1,10 +1,10 @@
 package fr.apside.apsipoker.user.rest;
 
-import com.exasky.dnd.common.Constant;
-import com.exasky.dnd.user.rest.dto.DnDCreateUserDto;
-import com.exasky.dnd.user.rest.dto.DnDUserDto;
-import com.exasky.dnd.user.rest.dto.DnDUserUpdatePasswordDto;
-import com.exasky.dnd.user.service.UserService;
+import fr.apside.apsipoker.common.Constant;
+import fr.apside.apsipoker.user.rest.dto.PokerCreateUserDto;
+import fr.apside.apsipoker.user.rest.dto.PokerUserDto;
+import fr.apside.apsipoker.user.rest.dto.PokerUserUpdatePasswordDto;
+import fr.apside.apsipoker.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,28 +21,28 @@ public class UserRestController {
     }
 
     @GetMapping
-    public List<DnDUserDto> getAll() {
-        return DnDUserDto.toDto(this.userService.getAll());
+    public List<PokerUserDto> getAll() {
+        return PokerUserDto.toDto(this.userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public DnDUserDto getById(@PathVariable Long id) {
-        return DnDUserDto.toDto(this.userService.getById(id));
+    public PokerUserDto getById(@PathVariable Long id) {
+        return PokerUserDto.toDto(this.userService.getById(id));
     }
 
     @PostMapping
-    public DnDUserDto create(@Valid @RequestBody DnDCreateUserDto dto) {
-        return DnDUserDto.toDto(this.userService.create(DnDCreateUserDto.toBo(dto)));
+    public PokerUserDto create(@Valid @RequestBody PokerCreateUserDto dto) {
+        return PokerUserDto.toDto(this.userService.create(PokerCreateUserDto.toBo(dto)));
     }
 
     @PutMapping("/{id}")
-    public DnDUserDto update(@PathVariable Long id, @Valid @RequestBody DnDUserDto dto) {
-        return DnDUserDto.toDto(this.userService.update(id, DnDUserDto.toBo(dto)));
+    public PokerUserDto update(@PathVariable Long id, @Valid @RequestBody PokerUserDto dto) {
+        return PokerUserDto.toDto(this.userService.update(id, PokerUserDto.toBo(dto)));
     }
 
     @PutMapping("/update-password/{id}")
-    public DnDUserDto updatePassword(@PathVariable Long id, @RequestBody DnDUserUpdatePasswordDto dto) {
-        return DnDUserDto.toDto(this.userService.updatePassword(id, DnDUserUpdatePasswordDto.toBo(dto)));
+    public PokerUserDto updatePassword(@PathVariable Long id, @RequestBody PokerUserUpdatePasswordDto dto) {
+        return PokerUserDto.toDto(this.userService.updatePassword(id, PokerUserUpdatePasswordDto.toBo(dto)));
     }
 
     @DeleteMapping("/{id}")

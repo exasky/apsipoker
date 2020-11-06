@@ -15,7 +15,7 @@
 	<description>Back of ApsiPoker</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<resource.folder>src/main/resources</resource.folder>
 		<liquibase.folder>${resource.folder}/liquibase</liquibase.folder>
 		<timestamp>${maven.build.timestamp}</timestamp>
@@ -92,13 +92,12 @@
 				<version>${liquibase.version}</version>
 				<configuration>
 					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<!--                    <url>jdbc:mysql://localhost:32781/dnd?useSSL=false&amp;allowPublicKeyRetrieval=true</url>-->
-					<url>jdbc:mysql://localhost:33000/dnd?useSSL=false&amp;allowPublicKeyRetrieval=true</url>
+					<url>jdbc:mysql://localhost:32775/apsipoker?useSSL=false&amp;allowPublicKeyRetrieval=true</url>
 					<username>root</username>
 					<password>root</password>
 					<changeLogFile>${liquibase.folder}/liquibase-changelog-master.xml</changeLogFile>
 					<referenceUrl>
-						hibernate:spring:com.exasky.dnd?dialect=org.hibernate.dialect.MySQLDialect
+						hibernate:spring:fr.apside.apsipoker?dialect=org.hibernate.dialect.MySQLDialect
 					</referenceUrl>
 					<diffChangeLogFile>${liquibase.folder}/changelog/liquibase-diff-${timestamp}.xml</diffChangeLogFile>
 					<outputChangeLogFile>${liquibase.folder}/changelog/liquibase-changeLog-${timestamp}.xml
@@ -119,22 +118,22 @@
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>spring-core</artifactId>
-						<version>${spring.version}</version>
+						<version>5.2.10.RELEASE</version>
 					</dependency>
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>spring-beans</artifactId>
-						<version>${spring.version}</version>
+						<version>5.2.10.RELEASE</version>
 					</dependency>
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>spring-orm</artifactId>
-						<version>${spring.version}</version>
+						<version>5.2.10.RELEASE</version>
 					</dependency>
 					<dependency>
 						<groupId>org.springframework</groupId>
 						<artifactId>spring-context</artifactId>
-						<version>${spring.version}</version>
+						<version>5.2.10.RELEASE</version>
 					</dependency>
 					<dependency>
 						<groupId>javax.xml.bind</groupId>
