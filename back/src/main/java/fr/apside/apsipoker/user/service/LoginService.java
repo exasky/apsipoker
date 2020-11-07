@@ -2,20 +2,20 @@ package fr.apside.apsipoker.user.service;
 
 import fr.apside.apsipoker.user.model.PokerUser;
 import fr.apside.apsipoker.user.model.UserRole;
-import fr.apside.apsipoker.user.repository.UserRepository;
+import fr.apside.apsipoker.user.repository.PokerUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
 
-    private final UserRepository userRepository;
+    private final PokerUserRepository pokerUserRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public LoginService(UserRepository userRepository,
+    public LoginService(PokerUserRepository pokerUserRepository,
                         PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+        this.pokerUserRepository = pokerUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -26,7 +26,7 @@ public class LoginService {
         s.setRole(UserRole.ROLE_ADMIN);
         s.setPassword(encorePassword(password));
 
-        return this.userRepository.save(s);
+        return this.pokerUserRepository.save(s);
     }
 
     public String encorePassword(String password) {

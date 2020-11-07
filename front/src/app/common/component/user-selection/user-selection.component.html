@@ -1,0 +1,47 @@
+<div class="flex-1 m-2 d-flex flex-column">
+  <h5>{{allUsersLabel}}</h5>
+
+  <mat-form-field appearance="fill" class="w-100" style="height: 70px">
+    <mat-label>Filtrer</mat-label>
+    <input matInput [(ngModel)]="userFilter"/>
+  </mat-form-field>
+
+  <mat-list cdkDropList
+            class="list"
+            #userList="cdkDropList"
+            [cdkDropListData]="remainingUsers"
+            [cdkDropListConnectedTo]="[selectedUserList]"
+            (cdkDropListDropped)="drop($event)"
+            [disabled]="disabled">
+    <mat-list-item *ngFor="let user of remainingUsers | filter:userFilter:'username'"
+                   class="list-item"
+                   cdkDrag>
+      <div class="flex-grow d-flex justify-content-between">
+        {{user.username}}
+        <mat-icon (click)="addUser(user)">keyboard_arrow_right</mat-icon>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<div class="flex-1 m-2 d-flex flex-column">
+  <h5>{{selectedUsersLabel}}</h5>
+
+  <mat-list cdkDropList
+            class="list"
+            style="margin-top: 70px"
+            #selectedUserList="cdkDropList"
+            [cdkDropListData]="selectedUsers"
+            [cdkDropListConnectedTo]="[userList]"
+            (cdkDropListDropped)="drop($event)"
+            [disabled]="disabled">
+    <mat-list-item *ngFor="let user of selectedUsers"
+                   class="list-item"
+                   cdkDrag>
+      <div class="flex-grow d-flex">
+        <mat-icon (click)="removeUser(user)">keyboard_arrow_left</mat-icon>
+        {{user.username}}
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>

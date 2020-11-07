@@ -4,10 +4,29 @@ export class Championship {
   startDate: Date;
   endDate: Date;
   participants: Player[];
+  tournaments: Tournament[];
+
+  constructor() {
+    this.participants = [];
+    this.tournaments = [];
+  }
+}
+
+export class Tournament {
+  id?: number;
+  date: Date;
+  participants: TournamentPlayer[];
 
   constructor() {
     this.participants = [];
   }
+}
+
+export class TournamentPlayer {
+  id?: number;
+  player: Player;
+  position: number;
+  points: number;
 }
 
 export class Player {

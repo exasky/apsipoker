@@ -19,8 +19,14 @@ public class Tournament {
     @JoinColumn(name = "championship_id")
     private Championship championship;
 
-    @OneToMany(mappedBy = "tournament", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TournamentPlayer> participants = new ArrayList<>();
+
+    public Tournament() {}
+
+    public Tournament(Long id) {
+        this.id = id;
+    }
 
     // region Getters & Setters
 
@@ -49,7 +55,8 @@ public class Tournament {
     }
 
     public void setParticipants(List<TournamentPlayer> participants) {
-        this.participants = participants;
+        this.participants.clear();
+        this.participants.addAll(participants);
     }
 
     // endregion

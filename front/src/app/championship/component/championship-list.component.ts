@@ -2,11 +2,11 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {ToasterService} from '../../common/service/toaster.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ChampionshipService} from '../service/championship.service';
-import {Championship, Player} from '../model/championship';
+import {Championship, Player, Tournament, TournamentPlayer} from '../model/championship';
 import {UserEdit} from '../../user/model/user-edit';
 import {UserService} from '../../user/service/user.service';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ConfirmDialogComponent} from '../../common/dialog/confirm-dialog.component';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-championship-list',
@@ -22,10 +22,9 @@ export class ChampionshipListComponent implements OnInit {
   isEdit = false;
   championshipEdit: Championship = new Championship();
 
-  baseUserList: UserEdit[] = [];
   users: UserEdit[] = [];
-  selectedUsers: UserEdit[] = [];
-  userFilter = '';
+
+  selected = new FormControl(0);
 
   constructor(private championshipService: ChampionshipService,
               private userService: UserService,
@@ -38,7 +37,7 @@ export class ChampionshipListComponent implements OnInit {
       this.championships = championships;
     });
     this.userService.getAll().subscribe(users => {
-      this.baseUserList = users;
+      this.users = users;
     });
   }
 
@@ -49,12 +48,12 @@ export class ChampionshipListComponent implements OnInit {
 
   select(championship: Championship): void {
     this.selectedChampionship = championship;
-    this.championshipEdit = JSON.parse(JSON.stringify(this.selectedChampionship));
 
-    this.users = JSON.parse(JSON.stringify(this.baseUserList));
-    this.selectedUsers = this.users
-      .filter(user => this.championshipEdit.participants.some(par => par.id === user.id));
-    this.selectedUsers.forEach(user => this.users.splice(this.users.indexOf(user), 1));
+    if (!championship) {
+      return;
+    }
+
+    this.championshipEdit = JSON.parse(JSON.stringify(this.selectedChampionship));
 
     this.isEdit = false;
   }
@@ -64,15 +63,15 @@ export class ChampionshipListComponent implements OnInit {
   }
 
   cancel(): void {
-    this.select(this.selectedChampionship);
+    this.select(this.selectedChampionship.id ? this.selectedChampionship : null);
   }
 
   save(): void {
     this.selectedChampionship = this.championshipEdit;
-    this.selectedChampionship.participants = this.selectedUsers.map(user => user as Player);
     if (this.selectedChampionship.id !== undefined) {
       this.championshipService.update(this.selectedChampionship).subscribe(savedChampionship => {
         this.select(savedChampionship);
+        this.championships[this.championships.findIndex(champ => champ.id === savedChampionship.id)] = savedChampionship;
         this.toaster.success('Championnat ' + savedChampionship.name + ' mis à jour !');
       });
     } else {
@@ -84,47 +83,51 @@ export class ChampionshipListComponent implements OnInit {
     }
   }
 
+  updateChampionshipPlayers($event: UserEdit[]): void {
+    this.championshipEdit.participants = $event as Player[];
+    this.championshipEdit.tournaments.forEach(tournament => {
+      tournament.participants = tournament.participants.filter(tournamentParticipant =>
+        this.championshipEdit.participants
+          .some(championshipParticipant => championshipParticipant.id === tournamentParticipant.player.id)
+      );
+    });
+  }
+
   delete(): void {
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        width: '250px',
-        data: {
-          title: 'Suppression de championnat',
-          confirmMessage: 'Êtes-vous sur de vouloir supprimer le championnat ' + this.selectedChampionship.name + '?'
-        }
-      });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: {
+        title: 'Suppression de championnat',
+        confirmMessage: 'Êtes-vous sur de vouloir supprimer le championnat ' + this.selectedChampionship.name + '?'
+      }
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.championshipService.delete(this.selectedChampionship.id).subscribe(() => {
-            this.ngOnInit();
-            this.toaster.success('Championnat ' + this.selectedChampionship.name + ' supprimé !');
-            this.select(null);
-          });
-        }
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.championshipService.delete(this.selectedChampionship.id).subscribe(() => {
+          this.ngOnInit();
+          this.toaster.success('Championnat ' + this.selectedChampionship.name + ' supprimé !');
+          this.select(null);
+        });
+      }
+    });
   }
 
-  addUserToChampionship(user: UserEdit): void {
-    this.users.splice(this.users.indexOf(user), 1);
-    this.selectedUsers.push(user);
-    this.users = [...this.users];
+  addTournament(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.championshipEdit.tournaments.push(new Tournament());
+    this.selected.setValue(this.championshipEdit.tournaments.length + 1);
   }
 
-  removeUserFromChampionship(user: UserEdit): void {
-    this.selectedUsers.splice(this.selectedUsers.indexOf(user), 1);
-    this.users.push(user);
-    this.users = [...this.users];
-  }
-
-  drop(event: CdkDragDrop<UserEdit[], any>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-    this.users = [...this.users];
+  updateTournamentPlayers(tournament: Tournament, $event: UserEdit[]): void {
+    tournament.participants = $event.map(user => {
+      let tp = tournament.participants.find(tPlayer => tPlayer.player.id === user.id);
+      if (!tp) {
+        tp = new TournamentPlayer();
+        tp.player = user as Player;
+      }
+      return tp;
+    });
   }
 }

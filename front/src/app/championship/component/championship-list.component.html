@@ -1,11 +1,10 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 <div class="d-flex flex-column flex-shrink-0">
   <button mat-raised-button
           class="flex-shrink-0 m-3"
           (click)="create()">
-    <div class="d-flex align-items-center">
-      <mat-icon class="mr-2">add</mat-icon>
-      Créer
-    </div>
+    <mat-icon class="mr-2">add</mat-icon>
+    Créer
   </button>
   <div class="flex-grow overflow d-flex flex-column">
     <button mat-raised-button color="accent"
@@ -17,12 +16,17 @@
   </div>
 </div>
 
+<mat-card class="m-3 flex-grow d-flex flex-column" *ngIf="!selectedChampionship">
+  <mat-card-content class="flex-grow d-flex justify-content-center align-items-center">
+    <h3>Veuillez sélectionner un championnat</h3>
+  </mat-card-content>
+</mat-card>
 
 <mat-card class="m-3 flex-grow d-flex flex-column" *ngIf="selectedChampionship">
   <mat-card-header class="flex-shrink-0 d-flex align-items-start flex-wrap">
     <mat-card-title>
-      <div *ngIf="selectedChampionship.name">{{selectedChampionship.name}}</div>
-      <div *ngIf="!selectedChampionship.name">Nouveau</div>
+      <div *ngIf="selectedChampionship.name">Championnat {{selectedChampionship.name}}</div>
+      <div *ngIf="!selectedChampionship.name">Nouveau championnat</div>
     </mat-card-title>
     <div class="flex-grow d-flex justify-content-end" *ngIf="!isEdit">
       <button mat-raised-button (click)="edit()">
@@ -46,85 +50,62 @@
     </div>
   </mat-card-header>
 
-  <mat-card-content class="d-flex flex-column overflow">
-    <div class="d-flex justify-content-evenly">
-      <mat-form-field appearance="fill">
-        <mat-label>Nom du championnat</mat-label>
-        <input matInput [(ngModel)]="championshipEdit.name"
-               required
-               autocomplete="nope"
-               [disabled]="!isEdit">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Date de début</mat-label>
-        <input matInput [matDatepicker]="startPicker" [(ngModel)]="championshipEdit.startDate" [disabled]="!isEdit">
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Date de fin</mat-label>
-        <input matInput [matDatepicker]="endPicker" [(ngModel)]="championshipEdit.endDate" [disabled]="!isEdit">
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <h3>Gestion des participants</h3>
-
-    <div class="d-flex justify-content-evenly">
-      <div class="flex-1 mx-2 d-flex flex-column">
-        <h5>Tous les utilisateurs</h5>
-
-        <mat-form-field appearance="fill" class="w-100" style="height: 70px">
-          <mat-label>Filtrer</mat-label>
-          <input matInput [(ngModel)]="userFilter"/>
-        </mat-form-field>
-
-        <mat-list cdkDropList
-                  class="list"
-                  #userList="cdkDropList"
-                  [cdkDropListData]="users"
-                  [cdkDropListConnectedTo]="[selectedUserList]"
-                  (cdkDropListDropped)="drop($event)"
-                  [disabled]="!isEdit">
-          <mat-list-item *ngFor="let user of users | filter:userFilter:'username'"
-                         class="list-item"
-                         cdkDrag>
-            <div class="flex-grow d-flex justify-content-between">
-              {{user.username}}
-              <mat-icon (click)="addUserToChampionship(user)">keyboard_arrow_right</mat-icon>
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </div>
-
-      <div class="flex-1 mx-2 d-flex flex-column">
-        <h5>Participants</h5>
-
-        <mat-list cdkDropList
-                  class="list"
-                  style="margin-top: 70px"
-                  #selectedUserList="cdkDropList"
-                  [cdkDropListData]="selectedUsers"
-                  [cdkDropListConnectedTo]="[userList]"
-                  (cdkDropListDropped)="drop($event)"
-                  [disabled]="!isEdit">
-          <mat-list-item *ngFor="let user of selectedUsers"
-                         class="list-item"
-                         cdkDrag>
-            <div class="flex-grow d-flex">
-              <mat-icon (click)="removeUserFromChampionship(user)">keyboard_arrow_left</mat-icon>
-              {{user.username}}
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </div>
-
-    <ng-container *ngIf="selectedChampionship.id">
-    <mat-divider class="my-3" style="position: unset !important;"></mat-divider>
-    TODO list of tournaments
-    </ng-container>
+  <mat-card-content class="flex-grow d-flex">
+    <mat-tab-group class="flex-grow"
+                   [selectedIndex]="selected.value"
+                   (selectedIndexChange)="selected.setValue($event)">
+      <mat-tab label="Informations">
+        <div class="flex-grow d-flex flex-column align-items-center justify-content-evenly">
+          <mat-form-field appearance="fill">
+            <mat-label>Nom du championnat</mat-label>
+            <input matInput [(ngModel)]="championshipEdit.name"
+                   required
+                   autocomplete="nope"
+                   [disabled]="!isEdit">
+          </mat-form-field>
+          <div>
+            <mat-form-field appearance="fill" class="mr-2">
+              <mat-label>Date de début</mat-label>
+              <input matInput [matDatepicker]="startPicker" [(ngModel)]="championshipEdit.startDate"
+                     [disabled]="!isEdit">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Date de fin</mat-label>
+              <input matInput [matDatepicker]="endPicker" [(ngModel)]="championshipEdit.endDate" [disabled]="!isEdit">
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Participants">
+        <app-user-selection [allUsers]="users"
+                            allUsersLabel="Tous les utilisateurs"
+                            selectedUsersLabel="Participants"
+                            [selectedUsers]="championshipEdit.participants"
+                            (selectedUsersChange)="updateChampionshipPlayers($event)"
+                            [disabled]="!isEdit"></app-user-selection>
+      </mat-tab>
+      <mat-tab *ngFor="let tournament of championshipEdit.tournaments; let index = index"
+               [label]="'Tournoi n°' + (index + 1)">
+        <app-user-selection [allUsers]="championshipEdit.participants"
+                            allUsersLabel="Tous les participants"
+                            selectedUsersLabel="Participants du tournoi"
+                            [selectedUsers]="tournament.participants | toPlayer"
+                            (selectedUsersChange)="updateTournamentPlayers(tournament, $event)"
+                            [disabled]="!isEdit"></app-user-selection>
+      </mat-tab>
+      <mat-tab *ngIf="selectedChampionship.id && isEdit" disabled>
+        <ng-template mat-tab-label>
+          <span (click)="addTournament($event)" class="d-flex align-items-center ">
+          <mat-icon>add</mat-icon>
+          Ajouter un tournoi
+            </span>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
 
   </mat-card-content>
 </mat-card>

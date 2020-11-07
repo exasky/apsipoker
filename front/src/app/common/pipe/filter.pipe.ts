@@ -3,7 +3,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'filter'})
 export class FilterPipe implements PipeTransform {
   transform(value: any[], filter: string, fieldPaths: string | string[]): any {
-    console.log('FILTERING')
+    if (!filter) { return value; }
+
     const fieldPathsAsArray: string[] = typeof fieldPaths === 'string' ? [fieldPaths] : fieldPaths;
 
     return value.filter(val => {

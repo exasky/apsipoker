@@ -1,7 +1,7 @@
 package fr.apside.apsipoker.security;
 
 import fr.apside.apsipoker.user.model.PokerUser;
-import fr.apside.apsipoker.user.repository.UserRepository;
+import fr.apside.apsipoker.user.repository.PokerUserRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final PokerUserRepository pokerUserRepository;
 
-    public MyUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public MyUserDetailsService(PokerUserRepository pokerUserRepository) {
+        this.pokerUserRepository = pokerUserRepository;
     }
 
     @Override
     public PokerUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userRepository.findByUsername(username)
+        return this.pokerUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }

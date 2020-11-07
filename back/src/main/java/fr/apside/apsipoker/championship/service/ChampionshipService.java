@@ -3,7 +3,7 @@ package fr.apside.apsipoker.championship.service;
 import fr.apside.apsipoker.championship.model.Championship;
 import fr.apside.apsipoker.championship.repository.ChampionshipRepository;
 import fr.apside.apsipoker.user.model.PokerUser;
-import fr.apside.apsipoker.user.service.UserService;
+import fr.apside.apsipoker.user.service.PokerUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,15 @@ import java.util.stream.Collectors;
 @Service
 public class ChampionshipService {
     private final ChampionshipRepository repository;
-    private final UserService userService;
+    private final PokerUserService pokerUserService;
+    private final TournamentService tournamentService;
 
-    public ChampionshipService(ChampionshipRepository repository, UserService userService) {
+    public ChampionshipService(ChampionshipRepository repository,
+                               PokerUserService pokerUserService,
+                               TournamentService tournamentService) {
         this.repository = repository;
-        this.userService = userService;
+        this.pokerUserService = pokerUserService;
+        this.tournamentService = tournamentService;
     }
 
     public Championship getById(Long id) {
@@ -34,7 +38,7 @@ public class ChampionshipService {
         Championship newChampionship = new Championship(toCreate.getName(), toCreate.getStartDate(), toCreate.getEndDate());
 
         newChampionship.setParticipants(
-                userService.getByIds(toCreate.getParticipants()
+                pokerUserService.getByIds(toCreate.getParticipants()
                         .stream()
                         .map(PokerUser::getId)
                         .collect(Collectors.toList())));
@@ -51,10 +55,12 @@ public class ChampionshipService {
         championship.setEndDate(toUpdate.getEndDate());
 
         championship.setParticipants(
-                userService.getByIds(toUpdate.getParticipants()
+                pokerUserService.getByIds(toUpdate.getParticipants()
                         .stream()
                         .map(PokerUser::getId)
                         .collect(Collectors.toList())));
+
+        championship.setTournaments(tournamentService.createOrUpdate(championship, toUpdate.getTournaments()));
 
         return repository.save(championship);
     }

@@ -3,7 +3,7 @@ package fr.apside.apsipoker.user.service;
 import fr.apside.apsipoker.common.Constant;
 import fr.apside.apsipoker.common.exception.ValidationCheckException;
 import fr.apside.apsipoker.user.model.PokerUser;
-import fr.apside.apsipoker.user.repository.UserRepository;
+import fr.apside.apsipoker.user.repository.PokerUserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +12,26 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserService {
-    private final UserRepository userRepository;
+public class PokerUserService {
+    private final PokerUserRepository pokerUserRepository;
     private final LoginService loginService;
 
-    public UserService(UserRepository userRepository,
-                       LoginService loginService) {
-        this.userRepository = userRepository;
+    public PokerUserService(PokerUserRepository pokerUserRepository,
+                            LoginService loginService) {
+        this.pokerUserRepository = pokerUserRepository;
         this.loginService = loginService;
     }
 
     public List<PokerUser> getAll() {
-        return userRepository.findAll();
+        return pokerUserRepository.findAll();
     }
 
     public PokerUser getById(Long id) {
-        return userRepository.getOne(id);
+        return pokerUserRepository.getOne(id);
     }
 
     public List<PokerUser> getByIds(List<Long> ids) {
-        return userRepository.findAllById(ids);
+        return pokerUserRepository.findAllById(ids);
     }
 
     @Transactional
@@ -49,7 +49,7 @@ public class UserService {
 
     @Transactional
     public PokerUser update(Long id, PokerUser toUpdate) {
-        PokerUser attachedUser = userRepository.getOne(id);
+        PokerUser attachedUser = pokerUserRepository.getOne(id);
 
         //noinspection ConstantConditions
         if (Objects.isNull(attachedUser)) {
@@ -68,7 +68,7 @@ public class UserService {
 
     @Transactional
     public PokerUser updatePassword(Long id, PokerUser toUpdate) {
-        PokerUser attachedUser = userRepository.getOne(id);
+        PokerUser attachedUser = pokerUserRepository.getOne(id);
 
         //noinspection ConstantConditions
         if (Objects.isNull(attachedUser)) {
@@ -82,13 +82,13 @@ public class UserService {
 
     @Transactional
     public void delete(Long id) {
-        PokerUser attachedUser = userRepository.getOne(id);
+        PokerUser attachedUser = pokerUserRepository.getOne(id);
 
         //noinspection ConstantConditions
         if (Objects.isNull(attachedUser)) {
             ValidationCheckException.throwError(HttpStatus.NOT_FOUND, Constant.Errors.USER.NOT_FOUND);
         }
 
-        userRepository.delete(attachedUser);
+        pokerUserRepository.delete(attachedUser);
     }
 }

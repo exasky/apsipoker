@@ -36,6 +36,10 @@ public class Championship {
     public Championship() {
     }
 
+    public Championship(Long id) {
+        this.id = id;
+    }
+
     public Championship(String name, Date startDate, Date endDate) {
         this.name = name;
         this.startDate = startDate;

@@ -30,7 +30,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatListModule} from '@angular/material/list';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FilterPipe} from './common/pipe/filter.pipe';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
+import {UserSelectionComponent} from './common/component/user-selection/user-selection.component';
+import {TournamentParticipantToPlayerPipe} from './championship/pipe/tournament-participant-to-player.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {MatDividerModule} from '@angular/material/divider';
     UserListComponent,
     UserDetailComponent,
     ChampionshipListComponent,
-    FilterPipe
+    UserSelectionComponent,
+    FilterPipe,
+    TournamentParticipantToPlayerPipe
   ],
   imports: [
     BrowserModule,
@@ -67,14 +71,15 @@ import {MatDividerModule} from '@angular/material/divider';
     DragDropModule,
     MatListModule,
     MatAutocompleteModule,
-    MatDividerModule
+    MatTabsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
-    FilterPipe
+    FilterPipe,
+    TournamentParticipantToPlayerPipe
   ],
   bootstrap: [AppComponent]
 })
