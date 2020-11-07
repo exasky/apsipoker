@@ -24,7 +24,7 @@ public class Championship {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "championship_participants",
             joinColumns = @JoinColumn(name = "championship_id", table = "poker_user"),
             inverseJoinColumns = @JoinColumn(name = "poker_user_id"))

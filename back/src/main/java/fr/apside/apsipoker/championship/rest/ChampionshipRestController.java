@@ -1,6 +1,6 @@
 package fr.apside.apsipoker.championship.rest;
 
-import fr.apside.apsipoker.championship.rest.dto.championship.ChampionshipCreateDto;
+import fr.apside.apsipoker.championship.rest.dto.championship.ChampionshipUpdateDto;
 import fr.apside.apsipoker.championship.rest.dto.championship.ChampionshipDetailDto;
 import fr.apside.apsipoker.championship.service.ChampionshipService;
 import fr.apside.apsipoker.common.Constant;
@@ -29,7 +29,17 @@ public class ChampionshipRestController {
     }
 
     @PostMapping
-    public ChampionshipDetailDto create(@RequestBody ChampionshipCreateDto dto) {
-        return ChampionshipDetailDto.toDto(service.create(ChampionshipCreateDto.toBo(dto)));
+    public ChampionshipDetailDto create(@RequestBody ChampionshipUpdateDto dto) {
+        return ChampionshipDetailDto.toDto(service.create(ChampionshipUpdateDto.toBo(dto)));
+    }
+
+    @PutMapping("/{id}")
+    public ChampionshipDetailDto update(@PathVariable Long id, @RequestBody ChampionshipUpdateDto dto) {
+        return ChampionshipDetailDto.toDto(service.update(id, ChampionshipUpdateDto.toBo(dto)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

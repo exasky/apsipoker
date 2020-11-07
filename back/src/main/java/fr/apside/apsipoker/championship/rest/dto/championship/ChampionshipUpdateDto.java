@@ -9,13 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ChampionshipCreateDto {
+public class ChampionshipUpdateDto {
     private String name;
     private Date startDate;
     private Date endDate;
     private List<PokerUserDto> participants = new ArrayList<>();
 
-    public static Championship toBo(ChampionshipCreateDto dto) {
+    public static Championship toBo(ChampionshipUpdateDto dto) {
         Championship bo = new Championship();
 
         bo.setName(dto.name);

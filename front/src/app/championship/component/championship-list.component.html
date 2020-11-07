@@ -75,7 +75,7 @@
       <div class="flex-1 mx-2 d-flex flex-column">
         <h5>Tous les utilisateurs</h5>
 
-        <mat-form-field appearance="fill" class="w-100">
+        <mat-form-field appearance="fill" class="w-100" style="height: 70px">
           <mat-label>Filtrer</mat-label>
           <input matInput [(ngModel)]="userFilter"/>
         </mat-form-field>
@@ -85,7 +85,8 @@
                   #userList="cdkDropList"
                   [cdkDropListData]="users"
                   [cdkDropListConnectedTo]="[selectedUserList]"
-                  (cdkDropListDropped)="drop($event)">
+                  (cdkDropListDropped)="drop($event)"
+                  [disabled]="!isEdit">
           <mat-list-item *ngFor="let user of users | filter:userFilter:'username'"
                          class="list-item"
                          cdkDrag>
@@ -102,10 +103,12 @@
 
         <mat-list cdkDropList
                   class="list"
+                  style="margin-top: 70px"
                   #selectedUserList="cdkDropList"
                   [cdkDropListData]="selectedUsers"
                   [cdkDropListConnectedTo]="[userList]"
-                  (cdkDropListDropped)="drop($event)">
+                  (cdkDropListDropped)="drop($event)"
+                  [disabled]="!isEdit">
           <mat-list-item *ngFor="let user of selectedUsers"
                          class="list-item"
                          cdkDrag>
@@ -117,7 +120,11 @@
         </mat-list>
       </div>
     </div>
+
+    <ng-container *ngIf="selectedChampionship.id">
+    <mat-divider class="my-3" style="position: unset !important;"></mat-divider>
     TODO list of tournaments
+    </ng-container>
 
   </mat-card-content>
 </mat-card>

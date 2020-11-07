@@ -30,6 +30,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatListModule} from '@angular/material/list';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FilterPipe} from './common/pipe/filter.pipe';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {FilterPipe} from './common/pipe/filter.pipe';
     MatNativeDateModule,
     DragDropModule,
     MatListModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDividerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -7,7 +7,6 @@ import fr.apside.apsipoker.user.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,6 @@ public class ChampionshipService {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @Transactional
     public Championship create(Championship toCreate) {
         Championship newChampionship = new Championship(toCreate.getName(), toCreate.getStartDate(), toCreate.getEndDate());
 
@@ -44,4 +42,25 @@ public class ChampionshipService {
         return repository.save(newChampionship);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Championship update(Long id, Championship toUpdate) {
+        Championship championship = repository.getOne(id);
+
+        championship.setName(toUpdate.getName());
+        championship.setStartDate(toUpdate.getStartDate());
+        championship.setEndDate(toUpdate.getEndDate());
+
+        championship.setParticipants(
+                userService.getByIds(toUpdate.getParticipants()
+                        .stream()
+                        .map(PokerUser::getId)
+                        .collect(Collectors.toList())));
+
+        return repository.save(championship);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void delete(Long id) {
+        repository.delete(repository.getOne(id));
+    }
 }

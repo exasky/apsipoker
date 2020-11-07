@@ -6,6 +6,7 @@ import {Championship, Player} from '../model/championship';
 import {UserEdit} from '../../user/model/user-edit';
 import {UserService} from '../../user/service/user.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {ConfirmDialogComponent} from '../../common/dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-championship-list',
@@ -70,37 +71,37 @@ export class ChampionshipListComponent implements OnInit {
     this.selectedChampionship = this.championshipEdit;
     this.selectedChampionship.participants = this.selectedUsers.map(user => user as Player);
     if (this.selectedChampionship.id !== undefined) {
-      // this.championshipService.update(this.selectedChampionship).subscribe(savedUser => {
-      //   this.selectUser(savedUser);
-      //   this.ngOnInit();
-      //   this.toaster.success('User ' + savedUser.username + ' updated !');
-      // });
+      this.championshipService.update(this.selectedChampionship).subscribe(savedChampionship => {
+        this.select(savedChampionship);
+        this.toaster.success('Championnat ' + savedChampionship.name + ' mis à jour !');
+      });
     } else {
       this.championshipService.create(this.selectedChampionship).subscribe(createdChampionship => {
         this.select(createdChampionship);
-        this.toaster.success('Championnat ' + createdChampionship.name + ' created !');
+        this.championships.push(createdChampionship);
+        this.toaster.success('Championnat ' + createdChampionship.name + ' crée !');
       });
     }
   }
 
   delete(): void {
-    //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-    //     width: '250px',
-    //     data: {
-    //       title: 'Character deletion',
-    //       confirmMessage: 'Êtes-vous sur de vouloir supprimer le championnat ' + this.selectedChampionship.name + '?'
-    //     }
-    //   });
-    //
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     if (result) {
-    //       this.userService.delete(this.selectedUser.id).subscribe(() => {
-    //         this.ngOnInit();
-    //         this.toaster.success('User ' + this.selectedUser.username + ' deleted !');
-    //         this.selectedUser = null;
-    //       });
-    //     }
-    //   });
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '250px',
+        data: {
+          title: 'Suppression de championnat',
+          confirmMessage: 'Êtes-vous sur de vouloir supprimer le championnat ' + this.selectedChampionship.name + '?'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.championshipService.delete(this.selectedChampionship.id).subscribe(() => {
+            this.ngOnInit();
+            this.toaster.success('Championnat ' + this.selectedChampionship.name + ' supprimé !');
+            this.select(null);
+          });
+        }
+      });
   }
 
   addUserToChampionship(user: UserEdit): void {

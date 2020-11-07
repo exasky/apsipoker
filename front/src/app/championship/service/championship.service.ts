@@ -21,4 +21,12 @@ export class ChampionshipService {
   create(championship: Championship): Observable<Championship> {
     return this.http.post<Championship>(ChampionshipService.API_URL, championship);
   }
+
+  update(championship: Championship): Observable<Championship> {
+    return this.http.put<Championship>(ChampionshipService.API_URL + '/' + championship.id, championship);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(ChampionshipService.API_URL + '/' + id);
+  }
 }
