@@ -1,4 +1,4 @@
-package fr.apside.apsipoker.tournament.model;
+package fr.apside.apsipoker.championship.model;
 
 import fr.apside.apsipoker.user.model.PokerUser;
 
@@ -24,6 +24,13 @@ public class TournamentPlayer {
 
     @Column
     private Float points;
+
+    public TournamentPlayer() {
+    }
+
+    public TournamentPlayer(Long id) {
+        this.id = id;
+    }
 
     // region Getters & Setters
 

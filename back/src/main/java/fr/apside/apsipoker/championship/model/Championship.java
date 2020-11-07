@@ -1,4 +1,4 @@
-package fr.apside.apsipoker.tournament.model;
+package fr.apside.apsipoker.championship.model;
 
 import fr.apside.apsipoker.user.model.PokerUser;
 
@@ -29,6 +29,15 @@ public class Championship {
 
     @OneToMany(mappedBy = "championship", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Tournament> tournaments = new ArrayList<>();
+
+    public Championship() {
+    }
+
+    public Championship(String name, Date startDate, Date endDate) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     // region Getters & Setters
 
@@ -65,7 +74,8 @@ public class Championship {
     }
 
     public void setParticipants(List<PokerUser> participants) {
-        this.participants = participants;
+        this.participants.clear();
+        this.participants.addAll(participants);
     }
 
     public List<Tournament> getTournaments() {

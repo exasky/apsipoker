@@ -48,6 +48,12 @@ public class PokerUserDto {
         return dto;
     }
 
+    public static List<PokerUser> toBo(List<PokerUserDto> bos) {
+        return Objects.isNull(bos)
+                ? new ArrayList<>()
+                : bos.stream().map(PokerUserDto::toBo).collect(Collectors.toList());
+    }
+
     public static PokerUser toBo(PokerUserDto dto) {
         PokerUser bo = new PokerUser();
 

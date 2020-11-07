@@ -1,4 +1,4 @@
-package fr.apside.apsipoker.tournament.model;
+package fr.apside.apsipoker.championship.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

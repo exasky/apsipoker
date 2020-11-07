@@ -1,6 +1,6 @@
 package fr.apside.apsipoker.user.model;
 
-import fr.apside.apsipoker.tournament.model.Championship;
+import fr.apside.apsipoker.championship.model.Championship;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
