@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "tournament")
+@Table(name = "championship")
 public class Championship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +18,20 @@ public class Championship {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "start_date")
     private Date startDate;
 
-    @Column
+    @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany
-    private List<PokerUser> participants = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "championship_participants",
+            joinColumns = @JoinColumn(name = "championship_id", table = "poker_user"),
+            inverseJoinColumns = @JoinColumn(name = "poker_user_id"))
+    private final List<PokerUser> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "championship", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Tournament> tournaments = new ArrayList<>();
+    private final List<Tournament> tournaments = new ArrayList<>();
 
     public Championship() {
     }
@@ -83,7 +86,8 @@ public class Championship {
     }
 
     public void setTournaments(List<Tournament> tournaments) {
-        this.tournaments = tournaments;
+        this.tournaments.clear();
+        this.tournaments.addAll(tournaments);
     }
 
     // endregion

@@ -26,7 +26,7 @@
   <mat-drawer #drawer mode="over" style="z-index: 100;">
     <div *ngIf="authService.currentUserValue && authService.isAdmin" class="d-flex flex-column m-3">
       <button mat-raised-button routerLink="/" (click)="drawer.toggle()">Menu principal</button>
-      <button mat-raised-button class="my-3" routerLink="/" (click)="drawer.toggle()">Gestion des Tournois</button>
+      <button mat-raised-button class="my-3" routerLink="/championships" (click)="drawer.toggle()">Gestion des championnats</button>
       <button mat-raised-button routerLink="/users" (click)="drawer.toggle()">Gestion des utilisateurs</button>
     </div>
   </mat-drawer>

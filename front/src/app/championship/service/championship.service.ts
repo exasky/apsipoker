@@ -14,6 +14,10 @@ export class ChampionshipService {
   constructor(private http: HttpClient) {
   }
 
+  getAll(): Observable<Championship[]> {
+    return this.http.get<Championship[]>(ChampionshipService.API_URL);
+  }
+
   create(championship: Championship): Observable<Championship> {
     return this.http.post<Championship>(ChampionshipService.API_URL, championship);
   }

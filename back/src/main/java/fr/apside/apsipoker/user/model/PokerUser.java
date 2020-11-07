@@ -41,7 +41,7 @@ public class PokerUser implements UserDetails {
     @Column
     private UserRole role;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "participants", cascade = CascadeType.ALL)
     private List<Championship> participations = new ArrayList<>();
 
     public PokerUser() {

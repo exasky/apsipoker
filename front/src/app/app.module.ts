@@ -23,6 +23,13 @@ import {UserDetailComponent} from './user/component/user-detail.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {ChampionshipListComponent} from './championship/component/championship-list.component';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatListModule} from '@angular/material/list';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FilterPipe} from './common/pipe/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     LoginComponent,
     ConfirmDialogComponent,
     UserListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    ChampionshipListComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -51,12 +60,19 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSidenavModule,
     MatCardModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    DragDropModule,
+    MatListModule,
+    MatAutocompleteModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    FilterPipe
   ],
   bootstrap: [AppComponent]
 })

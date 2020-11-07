@@ -6,4 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="liquibase/init/liquibase-init.xml"/>
+    <include file="liquibase/changelog/liquibase-diff-20201107-083107.xml"/>
+    <include file="liquibase/changelog/liquibase-diff-20201107-083309.xml"/>
+    <include file="liquibase/changelog/liquibase-diff-20201107-105417.xml"/>
 </databaseChangeLog>

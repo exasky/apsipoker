@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="exasky (generated)" id="1604737992896-3">
+        <addColumn tableName="championship">
+            <column name="end_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737992896-4">
+        <addColumn tableName="championship">
+            <column name="start_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737992896-5">
+        <dropColumn columnName="endDate" tableName="championship"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737992896-6">
+        <dropColumn columnName="startDate" tableName="championship"/>
+    </changeSet>
+</databaseChangeLog>

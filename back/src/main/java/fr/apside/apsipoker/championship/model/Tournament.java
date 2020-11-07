@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "tournament_step")
+@Table(name = "tournament")
 public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

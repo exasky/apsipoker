@@ -4,6 +4,10 @@ export class Championship {
   startDate: Date;
   endDate: Date;
   participants: Player[];
+
+  constructor() {
+    this.participants = [];
+  }
 }
 
 export class Player {

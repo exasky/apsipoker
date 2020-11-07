@@ -1,0 +1,123 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="exasky (generated)" id="1604737872505-3">
+        <createTable tableName="championship">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="championshipPK"/>
+            </column>
+            <column name="endDate" type="datetime"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="startDate" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-4">
+        <createTable tableName="championship_poker_user">
+            <column name="Championship_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="participants_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-5">
+        <createTable tableName="poker_user_championship">
+            <column name="PokerUser_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="participations_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-6">
+        <createTable tableName="tournament_player">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tournament_playerPK"/>
+            </column>
+            <column name="points" type="FLOAT"/>
+            <column name="position" type="TINYINT"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="tournament_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-7">
+        <addColumn tableName="tournament">
+            <column name="championship_id" type="bigint"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-8">
+        <addColumn tableName="tournament">
+            <column name="date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-9">
+        <addForeignKeyConstraint baseColumnNames="Championship_id" baseTableName="championship_poker_user" constraintName="FK3ggaino42gf5pavvx78e3jva4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="championship" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-10">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tournament_player" constraintName="FK7wgl7gs27y5e2t57fow8bsvvx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="poker_user" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-11">
+        <addForeignKeyConstraint baseColumnNames="participations_id" baseTableName="poker_user_championship" constraintName="FKg9opnigp8ak3rfs22sxyp1kss" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="championship" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-12">
+        <addForeignKeyConstraint baseColumnNames="championship_id" baseTableName="tournament" constraintName="FKp1q05gufgfeb4hb2ppjkbndrr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="championship" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-13">
+        <addForeignKeyConstraint baseColumnNames="participants_id" baseTableName="championship_poker_user" constraintName="FKprted7cr32fydult52fpux8sc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="poker_user" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-14">
+        <addForeignKeyConstraint baseColumnNames="PokerUser_id" baseTableName="poker_user_championship" constraintName="FKrqi0j2lnftgehhgs2q58pli3k" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="poker_user" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-15">
+        <addForeignKeyConstraint baseColumnNames="tournament_id" baseTableName="tournament_player" constraintName="FKrrm3jbmm1fxx5t9t5f8t46ebc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tournament" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-16">
+        <dropForeignKeyConstraint baseTableName="tournament_poker_user" constraintName="FK1eyfuprhi76tcjbdjhpad3ris"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-17">
+        <dropForeignKeyConstraint baseTableName="tournament_step" constraintName="FK1wbtqvceat8fixuvd8q9b3mrs"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-18">
+        <dropForeignKeyConstraint baseTableName="tournament_poker_user" constraintName="FKbng7iqdi65oaeon6488c02jao"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-19">
+        <dropForeignKeyConstraint baseTableName="poker_user_tournament" constraintName="FKbxwk84st3f6bryjam1ro0fby6"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-20">
+        <dropForeignKeyConstraint baseTableName="tournament_user" constraintName="FKhskshuo2n81s1vse7vdtgiug0"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-21">
+        <dropForeignKeyConstraint baseTableName="poker_user_tournament" constraintName="FKjormveoxebott28ynrl06apu"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-22">
+        <dropForeignKeyConstraint baseTableName="tournament_user" constraintName="FKnesh7ry4nplrut6mq2k91f726"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-23">
+        <dropTable tableName="poker_user_tournament"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-24">
+        <dropTable tableName="tournament_poker_user"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-25">
+        <dropTable tableName="tournament_step"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-26">
+        <dropTable tableName="tournament_user"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-27">
+        <dropColumn columnName="endDate" tableName="tournament"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-28">
+        <dropColumn columnName="name" tableName="tournament"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-29">
+        <dropColumn columnName="startDate" tableName="tournament"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-1">
+        <dropUniqueConstraint constraintName="UC_POKER_USERUSERNAME_COL" tableName="poker_user"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604737872505-2">
+        <addUniqueConstraint columnNames="username" constraintName="UC_POKER_USERUSERNAME_COL" tableName="poker_user"/>
+    </changeSet>
+</databaseChangeLog>

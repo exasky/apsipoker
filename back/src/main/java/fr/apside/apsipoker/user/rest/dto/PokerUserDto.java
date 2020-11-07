@@ -55,7 +55,7 @@ public class PokerUserDto {
     }
 
     public static PokerUser toBo(PokerUserDto dto) {
-        PokerUser bo = new PokerUser();
+        PokerUser bo = new PokerUser(dto.id);
 
         bo.setRole(dto.role);
         bo.setUsername(dto.username);

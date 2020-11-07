@@ -30,6 +30,10 @@ public class UserService {
         return userRepository.getOne(id);
     }
 
+    public List<PokerUser> getByIds(List<Long> ids) {
+        return userRepository.findAllById(ids);
+    }
+
     @Transactional
     public PokerUser create(PokerUser toCreate) {
         PokerUser attachedUser = loginService.register(toCreate.getUsername(), toCreate.getPassword());

@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="exasky (generated)" id="1604746461538-3">
+        <createTable tableName="championship_participants">
+            <column name="poker_user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="championship_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-4">
+        <addForeignKeyConstraint baseColumnNames="poker_user_id" baseTableName="championship_participants" constraintName="FK1w1kbjhd6xnw3vdpwywvth8ad" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="poker_user" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-5">
+        <addForeignKeyConstraint baseColumnNames="championship_id" baseTableName="championship_participants" constraintName="FKfq2da1dxb5dppf1hw69ax4gli" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="championship" validate="true"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-6">
+        <dropForeignKeyConstraint baseTableName="championship_poker_user" constraintName="FK3ggaino42gf5pavvx78e3jva4"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-7">
+        <dropForeignKeyConstraint baseTableName="poker_user_championship" constraintName="FKg9opnigp8ak3rfs22sxyp1kss"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-8">
+        <dropForeignKeyConstraint baseTableName="championship_poker_user" constraintName="FKprted7cr32fydult52fpux8sc"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-9">
+        <dropForeignKeyConstraint baseTableName="poker_user_championship" constraintName="FKrqi0j2lnftgehhgs2q58pli3k"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-10">
+        <dropTable tableName="championship_poker_user"/>
+    </changeSet>
+    <changeSet author="exasky (generated)" id="1604746461538-11">
+        <dropTable tableName="poker_user_championship"/>
+    </changeSet>
+</databaseChangeLog>

@@ -5,7 +5,7 @@ import fr.apside.apsipoker.user.model.PokerUser;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tournament_user")
+@Table(name = "tournament_player")
 public class TournamentPlayer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

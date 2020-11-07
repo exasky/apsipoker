@@ -6,6 +6,7 @@ import {UserDetailComponent} from './user/component/user-detail.component';
 import {UserListComponent} from './user/component/user-list.component';
 import {ProfileGuard} from './login/guard/profile.guard';
 import {ROLE_ADMIN} from './user/user';
+import {ChampionshipListComponent} from './championship/component/championship-list.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,7 +14,9 @@ const routes: Routes = [
   {
     path: '', canActivate: [AuthGuard], children: [
       {path: 'users', canActivate: [ProfileGuard], data: {roles: [ROLE_ADMIN]}, component: UserListComponent},
-      {path: 'user-detail', component: UserDetailComponent}
+      {path: 'user-detail', component: UserDetailComponent},
+
+      {path: 'championships', canActivate: [ProfileGuard], data: {roles: [ROLE_ADMIN]}, component: ChampionshipListComponent},
     ]
   },
 
