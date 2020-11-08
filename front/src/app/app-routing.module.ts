@@ -9,6 +9,7 @@ import {ROLE_ADMIN} from './user/user';
 import {ChampionshipListComponent} from './championship/component/championship-list.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {TournamentDetailComponent} from './tournament/component/tournament-detail.component';
+import {ChampionshipDetailComponent} from './championship/component/championship-detail.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
       {path: 'user-detail', component: UserDetailComponent},
 
       {path: 'championships', canActivate: [ProfileGuard], data: {roles: [ROLE_ADMIN]}, component: ChampionshipListComponent},
+      {path: 'championship/:id', component: ChampionshipDetailComponent},
 
       {path: 'tournament/:id', component: TournamentDetailComponent}
     ]

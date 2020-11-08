@@ -18,6 +18,10 @@ export class ChampionshipService {
     return this.http.get<Championship[]>(ChampionshipService.API_URL);
   }
 
+  getById(id: number | string): Observable<Championship> {
+    return this.http.get<Championship>(ChampionshipService.API_URL + '/' + id);
+  }
+
   create(championship: Championship): Observable<Championship> {
     return this.http.post<Championship>(ChampionshipService.API_URL, championship);
   }

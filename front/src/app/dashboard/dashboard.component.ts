@@ -4,7 +4,8 @@ import {Championship} from '../championship/model/championship';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   @HostBinding('class') cssClass = 'flex-grow d-flex flex-column align-items-center justify-content-evenly';

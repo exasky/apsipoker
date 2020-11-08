@@ -37,6 +37,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {FilterByDatePipe} from './dashboard/pipe/filter-by-date.pipe';
 import {TournamentDetailComponent} from './tournament/component/tournament-detail.component';
 import {MatTableModule} from '@angular/material/table';
+import {ChampionshipDetailComponent} from './championship/component/championship-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatTableModule} from '@angular/material/table';
     TournamentParticipantToPlayerPipe,
     DashboardComponent,
     FilterByDatePipe,
-    TournamentDetailComponent
+    TournamentDetailComponent,
+    ChampionshipDetailComponent
   ],
   imports: [
     BrowserModule,

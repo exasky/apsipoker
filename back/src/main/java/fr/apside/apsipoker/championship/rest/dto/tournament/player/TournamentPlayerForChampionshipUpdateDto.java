@@ -9,12 +9,14 @@ public class TournamentPlayerForChampionshipUpdateDto {
     private Long id;
     private PokerUserDto player;
     private Byte position;
+    private Float points;
 
     public static TournamentPlayer toBo(TournamentPlayerForChampionshipUpdateDto dto) {
         TournamentPlayer tournamentPlayer = new TournamentPlayer(dto.id);
 
         tournamentPlayer.setPosition(dto.position);
         tournamentPlayer.setPlayer(PokerUserDto.toBo(dto.player));
+        tournamentPlayer.setPoints(dto.points);
 
         return tournamentPlayer;
     }
@@ -25,6 +27,7 @@ public class TournamentPlayerForChampionshipUpdateDto {
         dto.setId(bo.getId());
         dto.setPosition(bo.getPosition());
         dto.setPlayer(PokerUserDto.toDto(bo.getPlayer()));
+        dto.setPoints(bo.getPoints());
 
         return dto;
     }
