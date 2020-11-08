@@ -1,8 +1,8 @@
-package fr.apside.apsipoker.championship.service;
+package fr.apside.apsipoker.tournament.service;
 
-import fr.apside.apsipoker.championship.model.Tournament;
-import fr.apside.apsipoker.championship.model.TournamentPlayer;
-import fr.apside.apsipoker.championship.repository.TournamentPlayerRepository;
+import fr.apside.apsipoker.tournament.model.Tournament;
+import fr.apside.apsipoker.tournament.model.TournamentPlayer;
+import fr.apside.apsipoker.tournament.repository.TournamentPlayerRepository;
 import fr.apside.apsipoker.user.service.PokerUserService;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +42,20 @@ public class TournamentPlayerService {
 
     private TournamentPlayer update(TournamentPlayer toUpdate) {
         return repository.getOne(toUpdate.getId());
+    }
+
+
+    public List<TournamentPlayer> updatePosition(List<TournamentPlayer> tournamentPlayers) {
+        return tournamentPlayers.stream()
+                .map(this::updatePosition)
+                .collect(Collectors.toList());
+    }
+
+    private TournamentPlayer updatePosition(TournamentPlayer toUpdate) {
+        TournamentPlayer bo = repository.getOne(toUpdate.getId());
+
+        bo.setPosition(toUpdate.getPosition());
+
+        return repository.save(bo);
     }
 }

@@ -1,0 +1,62 @@
+<div class="flex-shrink-0 d-flex justify-content-between align-items-center mb-2">
+  <h2>Championnat: {{baseTournament.championshipName}} - Tournoi du {{baseTournament.date | date:'dd/MM/yyyy'}}</h2>
+  <div *ngIf="authService.isAdmin">
+    <button mat-raised-button
+            *ngIf="!isEdit"
+            (click)="edit()">
+      <mat-icon>edit</mat-icon>
+      Editer
+    </button>
+    <ng-container *ngIf="isEdit">
+      <button mat-raised-button (click)="cancel()">
+        <mat-icon>undo</mat-icon>
+        Annuler
+      </button>
+      <button mat-raised-button color="accent" class="mx-2" (click)="save()">
+        <mat-icon>save</mat-icon>
+        Sauver
+      </button>
+    </ng-container>
+  </div>
+</div>
+
+<mat-table class="mat-elevation-z8"
+           [dataSource]="tournament.participants"
+           cdkDropList
+           [cdkDropListDisabled]="!isEdit"
+           [cdkDropListData]="tournament.participants"
+           (cdkDropListDropped)="drop($event)">
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef> No.</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="points">
+    <mat-header-cell *matHeaderCellDef> Points</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.points}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef> Nom d'utilisateur</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.player.username}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="firstname">
+    <mat-header-cell *matHeaderCellDef> Prénom</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.player.firstName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <mat-header-cell *matHeaderCellDef> Nom</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.player.lastName}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"
+           cdkDrag
+           [cdkDragData]=row></mat-row>
+</mat-table>

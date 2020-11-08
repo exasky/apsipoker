@@ -35,6 +35,8 @@ import {UserSelectionComponent} from './common/component/user-selection/user-sel
 import {TournamentParticipantToPlayerPipe} from './championship/pipe/tournament-participant-to-player.pipe';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FilterByDatePipe} from './dashboard/pipe/filter-by-date.pipe';
+import {TournamentDetailComponent} from './tournament/component/tournament-detail.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import {FilterByDatePipe} from './dashboard/pipe/filter-by-date.pipe';
     FilterPipe,
     TournamentParticipantToPlayerPipe,
     DashboardComponent,
-    FilterByDatePipe
+    FilterByDatePipe,
+    TournamentDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import {FilterByDatePipe} from './dashboard/pipe/filter-by-date.pipe';
     DragDropModule,
     MatListModule,
     MatAutocompleteModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

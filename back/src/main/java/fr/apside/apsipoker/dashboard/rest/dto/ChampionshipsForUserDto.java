@@ -1,8 +1,8 @@
 package fr.apside.apsipoker.dashboard.rest.dto;
 
 import fr.apside.apsipoker.championship.model.Championship;
-import fr.apside.apsipoker.championship.model.Tournament;
-import fr.apside.apsipoker.championship.model.TournamentPlayer;
+import fr.apside.apsipoker.tournament.model.Tournament;
+import fr.apside.apsipoker.tournament.model.TournamentPlayer;
 import fr.apside.apsipoker.user.rest.dto.PokerUserDto;
 import lombok.Data;
 

@@ -13,6 +13,7 @@ public final class Constant {
             private static final String PREFIX = "TOURNAMENT.";
 
             public static final String DATE_EMPTY = PREFIX + "DATE_EMPTY";
+            public static final String PARTICIPANT_SIZE_MISMATCH = PREFIX + "PARTICIPANT_SIZE_MISMATCH";
         }
 
         public static final class USER {

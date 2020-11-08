@@ -80,6 +80,13 @@
                [disabled]="!isEdit">
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Agence</mat-label>
+        <input matInput [(ngModel)]="userEdit.agency"
+               required
+               autocomplete="nope"
+               [disabled]="!isEdit">
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Mot de passe</mat-label>
         <input matInput [(ngModel)]="userEdit.password"
                type="password"

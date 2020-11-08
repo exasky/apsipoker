@@ -1,8 +1,10 @@
-package fr.apside.apsipoker.championship.service;
+package fr.apside.apsipoker.tournament.service;
 
 import fr.apside.apsipoker.championship.model.Championship;
-import fr.apside.apsipoker.championship.model.Tournament;
-import fr.apside.apsipoker.championship.repository.TournamentRepository;
+import fr.apside.apsipoker.common.Constant;
+import fr.apside.apsipoker.common.exception.ValidationCheckException;
+import fr.apside.apsipoker.tournament.model.Tournament;
+import fr.apside.apsipoker.tournament.repository.TournamentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +48,32 @@ public class TournamentService {
         attachedToUpdate.setParticipants(tournamentPlayerService.createOrUpdate(attachedToUpdate, toUpdate.getParticipants()));
 
         return repository.save(attachedToUpdate);
+    }
+
+    public Tournament getById(Long id) {
+        return repository.getOne(id);
+    }
+
+    public Tournament updateAndCalculatePoints(Long id, Tournament toUpdate) {
+        Tournament attachedToUpdate = repository.getOne(toUpdate.getId());
+
+        if (attachedToUpdate.getParticipants().size() != toUpdate.getParticipants().size()) {
+            ValidationCheckException.throwError(Constant.Errors.TOURNAMENT.PARTICIPANT_SIZE_MISMATCH);
+        }
+
+        attachedToUpdate.setParticipants(tournamentPlayerService.updatePosition(toUpdate.getParticipants()));
+
+        int nbParticipants = attachedToUpdate.getParticipants().size();
+        attachedToUpdate.getParticipants().forEach(participant ->
+                participant.setPoints(calculatePoints(nbParticipants, participant.getPosition()))
+        );
+
+        return repository.save(attachedToUpdate);
+    }
+
+    private static float calculatePoints(int nbParticipant, int position) {
+        return (float) Math.round(
+                (100 * (1 - (float) position / (float) nbParticipant) * Math.cbrt((float) nbParticipant / (float) position)
+                ) * 10) / 10;
     }
 }

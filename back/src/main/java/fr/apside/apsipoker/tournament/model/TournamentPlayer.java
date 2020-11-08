@@ -1,4 +1,4 @@
-package fr.apside.apsipoker.championship.model;
+package fr.apside.apsipoker.tournament.model;
 
 import fr.apside.apsipoker.user.model.PokerUser;
 

@@ -2,6 +2,7 @@ package fr.apside.apsipoker.championship.service;
 
 import fr.apside.apsipoker.championship.model.Championship;
 import fr.apside.apsipoker.championship.repository.ChampionshipRepository;
+import fr.apside.apsipoker.tournament.service.TournamentService;
 import fr.apside.apsipoker.user.model.PokerUser;
 import fr.apside.apsipoker.user.service.PokerUserService;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,5 +1,6 @@
 package fr.apside.apsipoker.championship.model;
 
+import fr.apside.apsipoker.tournament.model.Tournament;
 import fr.apside.apsipoker.user.model.PokerUser;
 
 import javax.persistence.*;

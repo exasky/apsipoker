@@ -9,7 +9,8 @@
       <h3>Tournois passés</h3>
       <div class="d-flex">
         <mat-card *ngFor="let t of c.tournaments | filterByDate:true"
-                  class="mx-2 pointer">
+                  class="mx-2 pointer"
+                  [routerLink]="'/tournament/' + t.id">
           <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
           <div *ngFor="let p of t.participants">
             {{p.player.username}}: n° {{p.position}}
