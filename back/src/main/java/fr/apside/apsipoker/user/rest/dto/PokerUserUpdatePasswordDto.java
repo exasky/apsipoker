@@ -1,7 +1,9 @@
 package fr.apside.apsipoker.user.rest.dto;
 
 import fr.apside.apsipoker.user.model.PokerUser;
+import lombok.Data;
 
+@Data
 public class PokerUserUpdatePasswordDto {
     private Long id;
     private String password;
@@ -13,24 +15,4 @@ public class PokerUserUpdatePasswordDto {
 
         return bo;
     }
-
-    // region Getters & Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // endregion
 }

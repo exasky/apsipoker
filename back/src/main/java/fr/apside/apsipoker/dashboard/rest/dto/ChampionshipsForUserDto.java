@@ -9,8 +9,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static fr.apside.apsipoker.common.Utils.mapList;
 
@@ -23,12 +21,6 @@ public class ChampionshipsForUserDto {
     private Date endDate;
     private List<PokerUserDto> participants = new ArrayList<>();
     private List<TournamentForUserDto> tournaments = new ArrayList<>();
-
-//    public static List<ChampionshipsForUserDto> toDto(List<Championship> bos) {
-//        return Objects.isNull(bos)
-//                ? new ArrayList<>()
-//                : bos.stream().map(ChampionshipsForUserDto::toDto).collect(Collectors.toList());
-//    }
 
     public static ChampionshipsForUserDto toDto(Championship bo) {
         ChampionshipsForUserDto dto = new ChampionshipsForUserDto();

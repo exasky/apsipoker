@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static fr.apside.apsipoker.common.Utils.mapList;
+
 @RestController
 @RequestMapping(Constant.REST_URL + "/championship")
 public class ChampionshipRestController {
@@ -21,7 +23,7 @@ public class ChampionshipRestController {
 
     @GetMapping
     public List<ChampionshipDetailDto> getAll() {
-        return ChampionshipDetailDto.toDto(service.getAll());
+        return mapList(service.getAll(), ChampionshipDetailDto::toDto);
     }
 
     @GetMapping("/{id}")

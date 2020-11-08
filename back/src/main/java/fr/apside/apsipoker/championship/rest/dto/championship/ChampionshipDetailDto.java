@@ -8,8 +8,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static fr.apside.apsipoker.common.Utils.mapList;
 
 @Data
 public class ChampionshipDetailDto {
@@ -20,12 +20,6 @@ public class ChampionshipDetailDto {
     private List<PokerUserDto> participants = new ArrayList<>();
     private List<TournamentForChampionshipUpdateDto> tournaments = new ArrayList<>();
 
-    public static List<ChampionshipDetailDto> toDto(List<Championship> bos) {
-        return Objects.isNull(bos)
-                ? new ArrayList<>()
-                : bos.stream().map(ChampionshipDetailDto::toDto).collect(Collectors.toList());
-    }
-
     public static ChampionshipDetailDto toDto(Championship bo) {
         ChampionshipDetailDto dto = new ChampionshipDetailDto();
 
@@ -33,8 +27,8 @@ public class ChampionshipDetailDto {
         dto.setName(bo.getName());
         dto.setStartDate(bo.getStartDate());
         dto.setEndDate(bo.getEndDate());
-        dto.setParticipants(PokerUserDto.toDto(bo.getParticipants()));
-        dto.setTournaments(TournamentForChampionshipUpdateDto.toDto(bo.getTournaments()));
+        dto.setParticipants(mapList(bo.getParticipants(), PokerUserDto::toDto));
+        dto.setTournaments(mapList(bo.getTournaments(), TournamentForChampionshipUpdateDto::toDto));
 
         return dto;
     }

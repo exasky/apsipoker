@@ -5,13 +5,11 @@ import fr.apside.apsipoker.championship.rest.dto.tournament.player.TournamentPla
 import fr.apside.apsipoker.common.Constant;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+
+import static fr.apside.apsipoker.common.Utils.mapList;
 
 @Data
 public class TournamentForChampionshipUpdateDto {
@@ -22,25 +20,13 @@ public class TournamentForChampionshipUpdateDto {
 
     private List<TournamentPlayerForChampionshipUpdateDto> participants;
 
-    public static List<Tournament> toBo(List<TournamentForChampionshipUpdateDto> dtos) {
-        return Objects.isNull(dtos)
-                ? new ArrayList<>()
-                : dtos.stream().map(TournamentForChampionshipUpdateDto::toBo).collect(Collectors.toList());
-    }
-
     public static Tournament toBo(TournamentForChampionshipUpdateDto dto) {
         Tournament tournament = new Tournament(dto.id);
 
         tournament.setDate(dto.date);
-        tournament.setParticipants(TournamentPlayerForChampionshipUpdateDto.toBo(dto.participants));
+        tournament.setParticipants(mapList(dto.participants, TournamentPlayerForChampionshipUpdateDto::toBo));
 
         return tournament;
-    }
-
-    public static List<TournamentForChampionshipUpdateDto> toDto(List<Tournament> bos) {
-        return Objects.isNull(bos)
-                ? new ArrayList<>()
-                : bos.stream().map(TournamentForChampionshipUpdateDto::toDto).collect(Collectors.toList());
     }
 
     public static TournamentForChampionshipUpdateDto toDto(Tournament bo) {
@@ -48,7 +34,7 @@ public class TournamentForChampionshipUpdateDto {
 
         dto.setId(bo.getId());
         dto.setDate(bo.getDate());
-        dto.setParticipants(TournamentPlayerForChampionshipUpdateDto.toDto(bo.getParticipants()));
+        dto.setParticipants(mapList(bo.getParticipants(), TournamentPlayerForChampionshipUpdateDto::toDto));
 
         return dto;
     }

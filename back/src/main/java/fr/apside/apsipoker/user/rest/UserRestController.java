@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static fr.apside.apsipoker.common.Utils.mapList;
+
 @RestController
 @RequestMapping(Constant.REST_URL + "/user")
 public class UserRestController {
@@ -22,7 +24,7 @@ public class UserRestController {
 
     @GetMapping
     public List<PokerUserDto> getAll() {
-        return PokerUserDto.toDto(this.pokerUserService.getAll());
+        return mapList(pokerUserService.getAll(), PokerUserDto::toDto);
     }
 
     @GetMapping("/{id}")

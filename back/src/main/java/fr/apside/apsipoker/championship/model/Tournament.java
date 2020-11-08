@@ -20,7 +20,7 @@ public class Tournament {
     private Championship championship;
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TournamentPlayer> participants = new ArrayList<>();
+    private final List<TournamentPlayer> participants = new ArrayList<>();
 
     public Tournament() {}
 

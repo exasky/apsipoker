@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static fr.apside.apsipoker.common.Utils.mapList;
+
 @Data
 public class ChampionshipUpdateDto {
     private String name;
@@ -26,8 +28,8 @@ public class ChampionshipUpdateDto {
         bo.setName(dto.name);
         bo.setStartDate(dto.startDate);
         bo.setEndDate(dto.endDate);
-        bo.setParticipants(PokerUserDto.toBo(dto.participants));
-        bo.setTournaments(TournamentForChampionshipUpdateDto.toBo(dto.tournaments));
+        bo.setParticipants(mapList(dto.participants, PokerUserDto::toBo));
+        bo.setTournaments(mapList(dto.tournaments, TournamentForChampionshipUpdateDto::toBo));
 
         return bo;
     }
