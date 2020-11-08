@@ -33,6 +33,8 @@ import {FilterPipe} from './common/pipe/filter.pipe';
 import {MatTabsModule} from '@angular/material/tabs';
 import {UserSelectionComponent} from './common/component/user-selection/user-selection.component';
 import {TournamentParticipantToPlayerPipe} from './championship/pipe/tournament-participant-to-player.pipe';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {FilterByDatePipe} from './dashboard/pipe/filter-by-date.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {TournamentParticipantToPlayerPipe} from './championship/pipe/tournament-
     ChampionshipListComponent,
     UserSelectionComponent,
     FilterPipe,
-    TournamentParticipantToPlayerPipe
+    TournamentParticipantToPlayerPipe,
+    DashboardComponent,
+    FilterByDatePipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +83,8 @@ import {TournamentParticipantToPlayerPipe} from './championship/pipe/tournament-
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     FilterPipe,
-    TournamentParticipantToPlayerPipe
+    TournamentParticipantToPlayerPipe,
+    FilterByDatePipe
   ],
   bootstrap: [AppComponent]
 })

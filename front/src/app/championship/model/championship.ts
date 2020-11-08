@@ -1,8 +1,8 @@
 export class Championship {
   id?: number;
   name: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   participants: Player[];
   tournaments: Tournament[];
 
@@ -14,7 +14,7 @@ export class Championship {
 
 export class Tournament {
   id?: number;
-  date: Date;
+  date: string;
   participants: TournamentPlayer[];
 
   constructor() {

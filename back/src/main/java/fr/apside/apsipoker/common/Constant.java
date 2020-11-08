@@ -9,6 +9,12 @@ public final class Constant {
     public static final class Errors {
         public static final String AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR";
 
+        public static final class TOURNAMENT {
+            private static final String PREFIX = "TOURNAMENT.";
+
+            public static final String DATE_EMPTY = PREFIX + "DATE_EMPTY";
+        }
+
         public static final class USER {
             private static final String PREFIX = "USER.";
 

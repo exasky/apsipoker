@@ -2,8 +2,11 @@ package fr.apside.apsipoker.championship.rest.dto.tournament;
 
 import fr.apside.apsipoker.championship.model.Tournament;
 import fr.apside.apsipoker.championship.rest.dto.tournament.player.TournamentPlayerForChampionshipUpdateDto;
+import fr.apside.apsipoker.common.Constant;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +16,10 @@ import java.util.stream.Collectors;
 @Data
 public class TournamentForChampionshipUpdateDto {
     private Long id;
+
+    @NotNull(message = Constant.Errors.TOURNAMENT.DATE_EMPTY)
     private Date date;
+
     private List<TournamentPlayerForChampionshipUpdateDto> participants;
 
     public static List<Tournament> toBo(List<TournamentForChampionshipUpdateDto> dtos) {

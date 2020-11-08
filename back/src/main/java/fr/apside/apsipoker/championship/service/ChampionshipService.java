@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static fr.apside.apsipoker.common.Utils.getCurrentUser;
+
 @Service
 public class ChampionshipService {
     private final ChampionshipRepository repository;
@@ -31,6 +33,10 @@ public class ChampionshipService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Championship> getAll() {
         return repository.findAll();
+    }
+
+    public List<Championship> getAllForCurrentUser() {
+        return repository.getAllForUser(getCurrentUser().getId());
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

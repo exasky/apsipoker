@@ -5,6 +5,7 @@ import fr.apside.apsipoker.championship.rest.dto.tournament.TournamentForChampio
 import fr.apside.apsipoker.user.rest.dto.PokerUserDto;
 import lombok.Data;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ public class ChampionshipUpdateDto {
     private Date startDate;
     private Date endDate;
     private List<PokerUserDto> participants = new ArrayList<>();
+
+    @Valid
     private List<TournamentForChampionshipUpdateDto> tournaments = new ArrayList<>();
 
     public static Championship toBo(ChampionshipUpdateDto dto) {

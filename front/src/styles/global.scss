@@ -36,24 +36,6 @@ app-root {
   overflow: auto !important;
 }
 
-.overflow-y {
-  overflow-y: auto !important;
-}
-
-.w-0 {
-  //noinspection CssRedundantUnit
-  width: 0px;
-}
-
-.mw-75 {
-  min-width: 75%;
-}
-
-.tooltip-inner {
-  max-width: unset !important;
-}
-
-.mdi-large {
-  font-size: 140% !important;
-  margin-right: 20px !important;
+.pointer {
+  cursor: pointer;
 }

@@ -90,12 +90,26 @@
       </mat-tab>
       <mat-tab *ngFor="let tournament of championshipEdit.tournaments; let index = index"
                [label]="'Tournoi n°' + (index + 1)">
-        <app-user-selection [allUsers]="championshipEdit.participants"
-                            allUsersLabel="Tous les participants"
-                            selectedUsersLabel="Participants du tournoi"
-                            [selectedUsers]="tournament.participants | toPlayer"
-                            (selectedUsersChange)="updateTournamentPlayers(tournament, $event)"
-                            [disabled]="!isEdit"></app-user-selection>
+        <div class="flex-grow d-flex flex-column">
+          <mat-form-field appearance="fill" class="m-2">
+            <mat-label>Date du tournoi</mat-label>
+            <input matInput
+                   (click)="datePicker.open()"
+                   [matDatepicker]="datePicker"
+                   [(ngModel)]="tournament.date"
+                   [disabled]="!isEdit"
+                   required>
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+          </mat-form-field>
+
+          <app-user-selection [allUsers]="championshipEdit.participants"
+                              allUsersLabel="Tous les participants"
+                              selectedUsersLabel="Participants du tournoi"
+                              [selectedUsers]="tournament.participants | toPlayer"
+                              (selectedUsersChange)="updateTournamentPlayers(tournament, $event)"
+                              [disabled]="!isEdit"></app-user-selection>
+        </div>
       </mat-tab>
       <mat-tab *ngIf="selectedChampionship.id && isEdit" disabled>
         <ng-template mat-tab-label>

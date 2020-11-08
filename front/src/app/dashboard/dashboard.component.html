@@ -1,0 +1,40 @@
+<h2>Mes championnats</h2>
+
+<mat-card *ngFor="let c of championships">
+  <mat-card-header>
+    <mat-card-title>{{c.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="d-flex flex-wrap">
+    <div class="d-flex flex-column m-3">
+      <h3>Tournois passés</h3>
+      <div class="d-flex">
+        <mat-card *ngFor="let t of c.tournaments | filterByDate:true"
+                  class="mx-2 pointer">
+          <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+          <div *ngFor="let p of t.participants">
+            {{p.player.username}}: n° {{p.position}}
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column m-3" *ngFor="let t of c.tournaments | filterByDate">
+      <h3>Tournoi en cours</h3>
+      <mat-card class="flex-grow d-flex flex-column">
+        <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+        <div *ngFor="let p of t.participants">
+          {{p.player.username}}: n° {{p.position}}
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="d-flex flex-column m-3">
+      <h3>Tournois à venir</h3>
+      <div class="flex-grow d-flex flex-column justify-content-center">
+        <div *ngFor="let t of c.tournaments | filterByDate:false">
+          <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

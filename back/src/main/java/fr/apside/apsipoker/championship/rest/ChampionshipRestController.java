@@ -6,6 +6,7 @@ import fr.apside.apsipoker.championship.service.ChampionshipService;
 import fr.apside.apsipoker.common.Constant;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,12 @@ public class ChampionshipRestController {
     }
 
     @PostMapping
-    public ChampionshipDetailDto create(@RequestBody ChampionshipUpdateDto dto) {
+    public ChampionshipDetailDto create(@Valid @RequestBody ChampionshipUpdateDto dto) {
         return ChampionshipDetailDto.toDto(service.create(ChampionshipUpdateDto.toBo(dto)));
     }
 
     @PutMapping("/{id}")
-    public ChampionshipDetailDto update(@PathVariable Long id, @RequestBody ChampionshipUpdateDto dto) {
+    public ChampionshipDetailDto update(@PathVariable Long id, @Valid @RequestBody ChampionshipUpdateDto dto) {
         return ChampionshipDetailDto.toDto(service.update(id, ChampionshipUpdateDto.toBo(dto)));
     }
 
