@@ -1,46 +1,50 @@
-<h2>Mes championnats</h2>
+<mat-card class="w-75 d-flex justify-content-center">
+  <h2>Mes championnats</h2>
+</mat-card>
 
-<mat-card *ngFor="let c of championships">
-  <mat-card-header class="flex-grow d-flex">
-    <mat-card-title class="flex-grow d-flex align-items-center justify-content-between">
-      <span>{{c.name}}</span>
-      <button type="button" mat-raised-button routerLink="/championship/{{c.id}}">
-        <mat-icon>calculate</mat-icon>
-      </button>
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="d-flex flex-wrap">
-    <div class="d-flex flex-column m-3">
-      <h3>Tournois passés</h3>
-      <div class="d-flex">
-        <mat-card *ngFor="let t of c.tournaments | filterByDate:true"
-                  class="mx-2 pointer"
-                  [routerLink]="'/tournament/' + t.id">
+<div class="w-75 my-2 overflow flex-grow d-flex flex-column">
+  <mat-card *ngFor="let c of championships" class="my-2">
+    <mat-card-header class="flex-grow d-flex">
+      <mat-card-title class="flex-grow d-flex align-items-center justify-content-between">
+        <span>{{c.name}}</span>
+        <button type="button" mat-raised-button routerLink="/championship/{{c.id}}">
+          <mat-icon>calculate</mat-icon>
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="d-flex flex-wrap justify-content-between">
+      <div class="d-flex flex-column m-3">
+        <h3>Tournois passés</h3>
+        <div class="d-flex">
+          <mat-card *ngFor="let t of c.tournaments | filterByDate:true"
+                    class="mx-2 pointer"
+                    [routerLink]="'/tournament/' + t.id">
+            <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+            <div *ngFor="let p of t.participants">
+              {{p.player.username}}: {{p.points}} points
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column m-3" *ngFor="let t of c.tournaments | filterByDate">
+        <h3>Tournoi en cours</h3>
+        <mat-card class="flex-grow d-flex flex-column">
           <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
           <div *ngFor="let p of t.participants">
-            {{p.player.username}}: {{p.points}} points
+            {{p.player.username}}: n° {{p.position}}
           </div>
         </mat-card>
       </div>
-    </div>
 
-    <div class="d-flex flex-column m-3" *ngFor="let t of c.tournaments | filterByDate">
-      <h3>Tournoi en cours</h3>
-      <mat-card class="flex-grow d-flex flex-column">
-        <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
-        <div *ngFor="let p of t.participants">
-          {{p.player.username}}: n° {{p.position}}
-        </div>
-      </mat-card>
-    </div>
-
-    <div class="d-flex flex-column m-3">
-      <h3>Tournois à venir</h3>
-      <div class="flex-grow d-flex flex-column justify-content-center">
-        <div *ngFor="let t of c.tournaments | filterByDate:false">
-          <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+      <div class="d-flex flex-column m-3">
+        <h3>Tournois à venir</h3>
+        <div class="flex-grow d-flex flex-column justify-content-center">
+          <div *ngFor="let t of c.tournaments | filterByDate:false">
+            <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
+          </div>
         </div>
       </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>

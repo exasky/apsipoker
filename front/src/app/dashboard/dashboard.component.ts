@@ -1,6 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {DashboardService} from './service/dashboard.service';
 import {Championship} from '../championship/model/championship';
+import {TournamentUtils} from '../common/utils/tournament.utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getDashboard().subscribe(championships => {
       this.championships = championships;
       this.championships.forEach(c => {
-        c.tournaments.sort((t1, t2) => new Date(t1.date).getTime() - new Date(t2.date).getTime());
+        c.tournaments.sort(TournamentUtils.sortTournament);
       });
     });
   }
