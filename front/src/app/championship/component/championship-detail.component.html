@@ -1,12 +1,55 @@
-<h3>Resultats</h3>
-<div *ngFor="let p of championship.participants">
-  <span>{{p.username}}: {{userPoints.get(p.id)}}</span>
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Table de résultats</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
 
-<h3>Résultats par tournoi</h3>
-<div *ngFor="let t of championship.tournaments" class="d-flex flex-column">
-  Tournoi du {{t.date | date:'dd/MM/yyyy'}}
-  <div *ngFor="let p of t.participants">
-    <span>{{p.player.username}}: {{p.points}}</span>
-  </div>
-</div>
+    <mat-table class="" [dataSource]="championship.participants">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef>Rang</mat-header-cell>
+        <mat-cell *matCellDef="let element; let index = index">{{index + 1}}</mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef>Pseudo</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.username}}</mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="firstname">
+        <mat-header-cell *matHeaderCellDef>Joueur</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.firstName}}</mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="total">
+        <mat-header-cell *matHeaderCellDef>Total points</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{userPoints.get(element.id)}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="positions">
+        <mat-header-cell *matHeaderCellDef>Résultats</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{getPositions(element.id).join('-')}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="mt-2">
+  <mat-card-header>
+    <mat-card-title>Résultats par tournoi</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="d-flex">
+    <div *ngFor="let t of championship.tournaments" class="mx-2 d-flex flex-column">
+      Tournoi du {{t.date | date:'dd/MM/yyyy'}}
+      <div *ngFor="let p of t.participants">
+        <span>{{p.player.username}}: {{p.points}}</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
