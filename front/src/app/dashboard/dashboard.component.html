@@ -27,9 +27,11 @@
         </div>
       </div>
 
-      <div class="d-flex flex-column m-3" *ngFor="let t of c.tournaments | filterByDate">
+      <div class="d-flex flex-column m-3">
         <h3>Tournoi en cours</h3>
-        <mat-card class="flex-grow d-flex flex-column">
+        <mat-card *ngFor="let t of c.tournaments | filterByDate"
+                  class="flex-grow d-flex flex-column pointer"
+                  [routerLink]="'/tournament/' + t.id">
           <span>Tournoi n°{{c.tournaments.indexOf(t)}} ({{t.date | date:'dd/MM/yyyy'}})</span>
           <div *ngFor="let p of t.participants">
             {{p.player.username}}: n° {{p.position}}
